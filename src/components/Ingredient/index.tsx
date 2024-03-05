@@ -1,5 +1,6 @@
 import { Image, Pressable, PressableProps, Text } from "react-native";
 import styles from "./styles";
+import { services } from "@/services";
 
 type ComponentProps = PressableProps & {
 	name: string;
@@ -14,15 +15,14 @@ export const Ingredient = ({
 	selected = false,
 	...rest
 }: ComponentProps) => {
+	const { storage } = services;
+
 	return (
 		<Pressable
 			style={[styles.container, selected && styles.selected]}
 			{...rest}
 		>
-			<Image
-				style={styles.image}
-				source={require("@/assets/images/apple.png")}
-			/>
+			<Image style={styles.image} source={{ uri: storage.path + image }} />
 			<Text style={styles.text}>{name}</Text>
 		</Pressable>
 	);
