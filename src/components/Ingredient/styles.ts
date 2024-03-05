@@ -7,7 +7,7 @@ export default StyleSheet.create({
 		height: 42,
 		paddingHorizontal: 16,
 		alignItems: "center",
-		gap: 6,
+		gap: 12,
 		alignSelf: "flex-start",
 
 		borderRadius: theme.borderRadius.full,
@@ -15,9 +15,14 @@ export default StyleSheet.create({
 		borderColor: theme.colors.gray_200,
 	},
 
+	selected: {
+		backgroundColor: theme.colors.green_100,
+		borderColor: theme.colors.green_600,
+	},
+
 	image: {
-		width: 24,
-		height: 24,
+		width: 16,
+		height: 16,
 	},
 
 	text: {
