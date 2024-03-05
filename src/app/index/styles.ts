@@ -1,14 +1,25 @@
+import { theme } from "@/theme";
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
+		padding: 24,
 	},
 	title: {
-		fontSize: 20,
-		fontWeight: "bold",
+		fontSize: theme.fonts.size.heading.xl,
+		fontFamily: theme.fonts.family.bold,
+		lineHeight: 44,
+		marginTop: 42,
+	},
+	subtitle: {
+		fontFamily: theme.fonts.family.regular,
+	},
+	message: {
+		fontSize: theme.fonts.size.body.md,
+		fontFamily: theme.fonts.family.regular,
+		marginTop: 12,
+		marginBottom: 38,
+		color: theme.colors.gray_400,
 	},
 });
