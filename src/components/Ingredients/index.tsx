@@ -1,33 +1,20 @@
-import { FlatList, ScrollView, View } from "react-native";
+import { Alert, FlatList, ScrollView, View } from "react-native";
 import { Ingredient } from "../Ingredient";
 import styles from "./styles";
-import { useState } from "react";
-
-const data = [
-	{
-		id: "1",
-		name: "Apple",
-		image: require("@/assets/images/apple.png"),
-	},
-	{
-		id: "2",
-		name: "Banana",
-		image: require("@/assets/images/banana.png"),
-	},
-	{
-		id: "3",
-		name: "Broccoli",
-		image: require("@/assets/images/broccoli.png"),
-	},
-	{
-		id: "4",
-		name: "Carrot",
-		image: require("@/assets/images/carrot.png"),
-	},
-];
+import { useEffect, useState } from "react";
+import { Selected } from "../Selected";
+import { router } from "expo-router";
+import { services } from "@/services";
 
 export const Ingredients = () => {
 	const [selected, setSelected] = useState<string[]>([]);
+	const [ingredients, setIngredients] = useState<IngredientResponse[]>([]);
+
+	useEffect(() => {
+		services.ingredients.findAll().then((data) => {
+			setIngredients(data);
+		});
+	}, []);
 
 	const handlePress = (idPressed: string) => {
 		if (selected.includes(idPressed)) {
@@ -37,22 +24,49 @@ export const Ingredients = () => {
 		}
 	};
 
+	const handleOnClear = () => {
+		Alert.alert("Clear", "Are you sure you want to clear?", [
+			{
+				text: "Yes",
+				onPress: () => setSelected([]),
+			},
+			{
+				text: "No",
+				style: "cancel",
+			},
+		]);
+	};
+
+	const handleOnSearch = () => {
+		router.navigate("/recipes/");
+	};
+
 	return (
-		<ScrollView
-			contentContainerStyle={styles.container}
-			showsVerticalScrollIndicator={false}
-		>
-			{data.map((item) => (
-				<Ingredient
-					key={item.id}
-					name={item.name}
-					image={item.image}
-					onPress={() => {
-						handlePress(item.id);
-					}}
-					selected={selected.includes(item.id)}
+		<View>
+			<ScrollView
+				contentContainerStyle={styles.container}
+				showsVerticalScrollIndicator={false}
+			>
+				{ingredients.map((item) => (
+					<Ingredient
+						key={item.id}
+						name={item.name}
+						image={item.image}
+						onPress={() => {
+							handlePress(item.id);
+						}}
+						selected={selected.includes(item.id)}
+					/>
+				))}
+			</ScrollView>
+
+			{selected.length > 0 && (
+				<Selected
+					onClear={handleOnClear}
+					onSearch={handleOnSearch}
+					quantity={selected.length}
 				/>
-			))}
-		</ScrollView>
+			)}
+		</View>
 	);
 };
