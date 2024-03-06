@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import styles from "./styles";
-import { Ingredients } from "@/components/Ingredients";
+import { IngredientsVertical } from "@/components/IngredientsVertical";
 
 const Index = () => {
 	return (
@@ -14,7 +14,7 @@ const Index = () => {
 				ingredients!
 			</Text>
 
-			<Ingredients />
+			<IngredientsVertical />
 		</View>
 	);
 };
