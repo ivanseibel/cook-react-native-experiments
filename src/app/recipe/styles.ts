@@ -46,4 +46,7 @@ export default StyleSheet.create({
 		marginTop: 36,
 		marginBottom: 12,
 	},
+	recipePreparationStepsContainer: {
+		flex: 1,
+	},
 });
